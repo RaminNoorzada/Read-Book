@@ -14,7 +14,6 @@ This is a tech-blog site. It allows developers to publish their blog posts and c
 
 ## installation
 
-
 Clone this repository to your local machine.
 Navigate to the root directory of the application in your terminal.
 Run npm install to install the necessary dependencies.
