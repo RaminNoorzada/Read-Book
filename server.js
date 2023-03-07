@@ -4,12 +4,14 @@ const session = require('express-session'); //Import Express-session middleware
 const exphbs = require('express-handlebars'); //Import Express handlebars tems
 const helpers = require('./utils/helpers'); //Import custrm helpers modu;e
 
-const routes = require('./controllers') //Import app's controllers
+const dashboardRoutes = require('./controllers/dashboard-routes');
+
+const routes = require('./controllers/dashboard-routes') 
 
 const app = express();
 const PORT = process.env.PORT || 3001; //Setting the port number
 
-const sequelize = require('./config/connection');
+const sequelize = require('./db');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = { 
@@ -34,9 +36,13 @@ const hbs = exphbs.create({ helpers });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-app.use(express.json()); //Parsing JSON data
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', homeRoutes);
+app.use('/dashboard', dashboardRoutes);
+app.use('/api', apiRoutes);
 
 app.use(routes);
 

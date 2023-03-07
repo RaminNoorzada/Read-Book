@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Post } = require('../../models');
 const withAuth = require('../../utils/auth');
-const sequelize = require('../..config/connection')
+const sequelize = require('../../config/connection')
 
 router.post('/', withAuth, async (req, res) => {
   const body = req.body;
