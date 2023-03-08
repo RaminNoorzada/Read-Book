@@ -37,14 +37,14 @@ router.get('/new', withAuth, (req, res) => {
 });
 
 // get edit post form
-// router.get('/edit/:id', withAuth, async (req, res) => {
-  // try {
-    // const postData = await Post.findByPk(req.params.id);
+router.get('/edit/:id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id);
     if (!postData) {
       res.status(404).json({ message: 'No post found with this id' });
       return;
     }
-    // const post = postData.get({ plain: true });
+    const post = postData.get({ plain: true });
     res.render('edit-post', { post });
   } catch (err) {
     res.status(500).json(err);
