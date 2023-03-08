@@ -4,8 +4,6 @@ const session = require('express-session'); //Import Express-session middleware
 const exphbs = require('express-handlebars'); //Import Express handlebars tems
 const helpers = require('./utils/helpers'); //Import custrm helpers modu;e
 
-const dashboardRoutes = require('./controllers/dashboard-routes');
-
 const routes = require('./controllers/dashboard-routes') 
 
 const app = express();
