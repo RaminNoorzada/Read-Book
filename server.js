@@ -1,19 +1,17 @@
-const path = require('path'); //Import Node.js path module
-const express = require('express'); //Import Express.js lib
-const session = require('express-session'); //Import Express-session middleware
-const exphbs = require('express-handlebars'); //Import Express handlebars tems
-const helpers = require('./utils/helpers'); //Import custrm helpers modu;e
-
-const routes = require('./controllers/dashboard-routes') 
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const helpers = require('./utils/helpers');
 
 const app = express();
-const PORT = process.env.PORT || 3001; //Setting the port number
+const PORT = process.env.PORT || 3001;
 
-const sequelize = require('./db');
+const sequelize = require('./config/config');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-const sess = { 
-  secret: 'Super',
+const sess = {
+  secret: 'Super secret secret',
   cookie: {
     maxAge: 300000,
     httpOnly: true,
@@ -27,25 +25,20 @@ const sess = {
   })
 };
 
-app.use(session(sess)); //Use the express-session middleware with config ops
+app.use(session(sess));
 
 const hbs = exphbs.create({ helpers });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', homeRoutes);
-app.use('/dashboard', dashboardRoutes);
-app.use('/api', apiRoutes);
+app.use(require('./controllers/'));
 
-app.use(routes);
-
-
-app.listen(PORT, () => { //Start tthe server
+app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
   sequelize.sync({ force: false });
 });
