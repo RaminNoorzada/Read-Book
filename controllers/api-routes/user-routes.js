@@ -9,16 +9,17 @@ router.post('/', async (req, res) => {
     });
 
     req.session.save(() => {
-      req.session.userId = newUser.id;
-      req.session.username = newUser.username;
-      req.session.loggedIn = true;
+      req.session.user_id = newUser.id
+      req.session.username = newUser.username
+      req.session.logged_in = true
 
-      res.json(newUser);
-    });
+      res.status(200).json(newUser)
+    })
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err)
+    res.status(500).json(err)
   }
-});
+})
 
 router.post('/login', async (req, res) => {
   try {
@@ -41,25 +42,25 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.userId = user.id;
-      req.session.username = user.username;
-      req.session.loggedIn = true;
+      req.session.user_id = user.id
+      req.session.username = user.username
+      req.session.logged_in = true
 
       res.json({ user, message: 'You are now logged in!' });
     });
   } catch (err) {
     res.status(400).json({ message: 'No user account found!' });
   }
-});
+})
 
 router.post('/logout', (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
     });
   } else {
-    res.status(404).end();
+    res.status(404).end()
   }
-});
+})
 
-module.exports = router;
+module.exports = router
