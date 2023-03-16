@@ -1,65 +1,54 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const {Post, User, comment } = require('../models/');
+const withAuth = require('../utils/auth')
 
-router.post('/', async (req, res) => {
+router.get('/', withAuth async (req, res) => {
   try {
-    const newUser = await User.create({
-      username: req.body.username,
-      password: req.body.password,
-    });
-
-    req.session.save(() => {
-      req.session.userId = newUser.id;
-      req.session.username = newUser.username;
-      req.session.loggedIn = true;
-
-      res.json(newUser);
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-router.post('/login', async (req, res) => {
-  try {
-    const user = await User.findOne({
+    const postData = await Post.findAll({
       where: {
-        username: req.body.username,
-      },
-    });
+        user_id: req.session.user_id,
 
-    if (!user) {
-      res.status(400).json({ message: 'No user account found!' });
-      return;
-    }
-
-    const validPassword = user.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res.status(400).json({ message: 'No user account found!' });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.userId = user.id;
-      req.session.username = user.username;
-      req.session.loggedIn = true;
-
-      res.json({ user, message: 'You are now logged in!' });
-    });
+      }
+      include: [
+        {
+          model: Comment,
+          include: {
+            model: User,
+            attributes: ['username'],
+          },
+        },
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+});
+const posts = postData.map((post) => post.get)({ plain: true })
+console.log(posts)
+res.render('dashboard', { posts, logged_in: req.session.logged_in })
   } catch (err) {
-    res.status(400).json({ message: 'No user account found!' });
+    res.redirect('/')
+
   }
 });
 
-router.post('/logout', (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+router.get('/new', (req, res) => {
+  res.render('new-post')
+})
 
-module.exports = router;
+router.get('/edit/:id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id)
+    
+    if (postData) {
+      const post = postData.get({ plain: true })
+      res.render('edit-post', { post })
+    } else {
+      res.status('edit-post', { post })
+    } 
+  } catch (err) {
+    res.redirect('login')
+  }
+})
+
+module.exports = router
