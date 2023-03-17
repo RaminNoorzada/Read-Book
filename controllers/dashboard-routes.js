@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Post, User, comment } = require('../models/');
+const { Post, User, Comment } = require('../models/');
 const withAuth = require('../utils/auth')
 
 router.get('/', withAuth, async (req, res) => {
@@ -8,7 +8,7 @@ router.get('/', withAuth, async (req, res) => {
       where: {
         user_id: req.session.user_id,
 
-      }
+      },
       include: [
         {
           model: Comment,
@@ -44,7 +44,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
       const post = postData.get({ plain: true })
       res.render('edit-post', { post })
     } else {
-      res.status('edit-post', { post })
+      res.status(404).end()
     } 
   } catch (err) {
     res.redirect('login')
