@@ -2,6 +2,10 @@
 
 ![GitHub licence](https://img.shields.io/badge/licence-MIT-gree.svg)
 
+## Deployed 
+
+[Deployed link here]()
+
 ## Deccription
 
 This is a tech-blog site. It allows developers to publish their blog posts and comment on other developers’ posts as well. The app follows the MVC paradigm in its architectural structure, using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication.
