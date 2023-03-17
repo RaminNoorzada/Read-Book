@@ -9,8 +9,8 @@ const loginFormHandler = async (event) => {
   )
   {
     const response = await fetch('/api/users/login',{
-      mothode: 'POST',
-      bosy: JSON.stringify({ username, password }),
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
     
@@ -32,8 +32,8 @@ const signupFormHandler = async (event) => {
   )
   {
     const response = await fetch('/api/users',{
-      mothode: 'POST',
-      bosy: JSON.stringify({ username, password }),
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
     
@@ -48,6 +48,6 @@ document
   .querySelector('.login-form')
   .addEventListener('submit', loginFormHandler);
 
-  document
+document
   .querySelector('.signup-form')
-  .addEventListener('submit', loginFormHandler);
+  .addEventListener('submit', signupFormHandler);
