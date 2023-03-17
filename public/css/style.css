@@ -1,10 +1,10 @@
 :root {
-  --primary: #ccdad1;
-  --secondary: #9caea9;
-  --tertiary: #788585;
-  --light-dark: #6f6866;
-  --dark: #38302e;
-  --border-radius: 0.3rem;
+    --primary: #7cd2ec;
+    --secondary: #ffc0cb;
+    --tertiary: #f9a856;
+    --light-dark: #e2e2e2;
+    --dark: #4b5a4f;
+    --border-radius: 0.5rem;  
 }
 
 * {
@@ -15,7 +15,7 @@ body {
   background-color: var(--primary);
   margin: 0;
   padding: 0;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family:Georgia, 'Times New Roman', Times, serif;
   color: var(--dark);
   line-height: 1.5;
   font-size: 16px;
@@ -38,11 +38,11 @@ h2 a:visited {
 }
 
 h2 a {
-  color: var(--primary);
+  color: black;
 }
 
 header {
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 main {
@@ -52,6 +52,7 @@ main {
 
 a {
   text-decoration: none;
+  color: #2c1f26;
 }
 
 p {
@@ -78,7 +79,7 @@ input {
   display: block;
   margin: 5px 0;
   border-radius: var(--border-radius);
-  color: var(--primary);
+  color: black;
   border: none;
   outline: none;
   background-color: var(--light-dark);
@@ -105,6 +106,7 @@ input {
   width: 100%;
   position: fixed;
   background-color: var(--dark);
+  
 }
 
 .nav-item {
@@ -169,10 +171,31 @@ input {
 /* CARDS */
 .card {
   margin: 0 0 20px 0;
+  margin-top: 0px;
   border: 3px solid var(--dark);
   border-radius: var(--border-radius);
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: row;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
 }
-
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0px;
+  margin-left: -10px;
+  margin-top: 86px;
+  margin-left: -22px;
+}
 .card-header {
   color: var(--primary);
   background-color: var(--dark);

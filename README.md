@@ -29,8 +29,6 @@ Run npm start to start the server.
 ## Usage
 Once the server is started, navigate to http://localhost:3001 in your browser to use the application. You can create a new user account, log in, create new blog posts, and comment on existing blog posts.
 
-## Deployed app
-The app function images.(work in progress)
 
 ## License
 This application is licensed under the MIT License. See the LICENSE file for more information.
